@@ -55,3 +55,19 @@ mod super_io;
 pub use self::timeout::StdTimeout;
 pub use self::timeout::Timeout;
 mod timeout;
+
+#[cfg(feature = "python-bindings")]
+mod bindings;
+
+#[cfg(feature = "python-bindings")]
+use pyo3::prelude::*;
+
+#[cfg(feature = "python-bindings")]
+#[pymodule]
+#[pyo3(name = "ectool")]
+fn ectool(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
+    m.add_class::<crate::bindings::EcController>()?;
+    Ok(())
+}
+
+
