@@ -1,18 +1,19 @@
 [package]
-name = "system76_ectool"
+name = "ectool"
 version = "0.3.8"
 edition = "2024"
 description = "System76 EC tool"
 license = "MIT"
-authors = ["Jeremy Soller <jeremy@system76.com>"]
+authors = ["Jeremy Soller <jeremy@system76.com>", "Erin O'Connell <erin@system76.com>"]
 repository = "https://github.com/system76/ec"
 documentation = "https://docs.rs/system76_ectool"
 
 [lib]
 name = "ectool"
+crate-type = ["rlib","cdylib"]
 
 [[bin]]
-name = "system76_ectool"
+name = "ectool"
 required-features = ["std", "hidapi", "clap"]
 
 [dependencies]
@@ -21,10 +22,12 @@ libc = { version = "0.2", optional = true }
 hidapi = { version = "2.6.3", default-features = false, features = ["linux-shared-hidraw"], optional = true }
 redox_hwio = { version = "0.1.6", default-features = false, optional = true }
 downcast-rs = { version = "2.0.1", default-features = false }
+pyo3 = { version = "0.25.0", default-features = false, optional = true, features = ["macros", "extension-module"] }
 
 [features]
 default = ["std", "hidapi", "clap"]
 std = ["libc", "downcast-rs/std"]
+python-bindings = ["pyo3", "hidapi"]
 
 [package.metadata.docs.rs]
 all-features = true
