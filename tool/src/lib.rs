@@ -67,6 +67,8 @@ use pyo3::prelude::*;
 #[pyo3(name = "ectool")]
 fn ectool(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_class::<crate::bindings::EcController>()?;
+    m.add_class::<crate::bindings::FrameBuffer>()?;
+    m.add_class::<crate::bindings::Led>()?;
     Ok(())
 }
 
